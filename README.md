@@ -129,25 +129,8 @@ Flask
 Database
 SQLite
 
-No Node.js or npm is required.
 
-Project Structure
-TaskFlow/
-│
-├── Backend/
-│   ├── app.py
-│   ├── database.py
-│   └── ...
-│
-├── static/
-│   ├── ...
-│   └── js/
-│       └── app.js
-│
-├── .gitignore
-├── README.md
-└── ...
-Running the Application
+## Running the Application
 1. Open the project
 cd TaskFlow
 2. Enter the Backend directory
