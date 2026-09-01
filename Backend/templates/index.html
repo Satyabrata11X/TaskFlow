@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow - Project Management Secured by AuthSphere</title>
+  <meta name="description" content="TaskFlow is a modern project-management demo application showcasing AuthSphere identity, organization, role-based access control (RBAC), and permission enforcement.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="auth-page-container">
+
+  <!-- Top Navigation -->
+  <nav class="landing-nav">
+    <div class="brand-logo">
+      <div class="brand-icon">⚡</div>
+      <span>TaskFlow</span>
+    </div>
+    <div>
+      <a href="/login.html" class="btn btn-primary" id="landing-login-btn">Launch Demo Login →</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="landing-hero">
+    <div class="hero-badge">
+      <span>🛡️</span> Official Demo Application for AuthSphere
+    </div>
+
+    <h1 class="hero-title">
+      Project Management Secured by AuthSphere
+    </h1>
+
+    <p class="hero-subtitle">
+      TaskFlow demonstrates seamless User Identity, Multi-Tenant Organizations, Role-Based Access Control (RBAC), and Dynamic Permission Enforcement across Projects and Tasks.
+    </p>
+
+    <!-- Architecture Pipeline Diagram -->
+    <div class="pipeline-box">
+      <div class="pipeline-title">Identity & Access Control Pipeline</div>
+      <div class="pipeline-steps">
+        <div class="pipeline-step">1. User</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step highlight">2. Authentication</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">3. Identity</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">4. Organization</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">5. Role</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">6. Permissions</div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step highlight">7. TaskFlow App</div>
+      </div>
+    </div>
+
+    <!-- Features & Roles Preview -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; width: 100%; margin: 20px 0 36px;">
+      <div style="background: rgba(30,41,59,0.7); border: 1px solid #334155; padding: 18px; border-radius: 10px; text-align: left;">
+        <div style="font-weight: 700; color: #a78bfa; margin-bottom: 4px;">Owner (Satya)</div>
+        <div style="font-size: 0.8rem; color: #94a3b8;">Full administrative rights: create, edit, delete projects and tasks.</div>
+      </div>
+      <div style="background: rgba(30,41,59,0.7); border: 1px solid #334155; padding: 18px; border-radius: 10px; text-align: left;">
+        <div style="font-weight: 700; color: #60a5fa; margin-bottom: 4px;">Manager (Priya)</div>
+        <div style="font-size: 0.8rem; color: #94a3b8;">Project and task management. Cannot delete projects.</div>
+      </div>
+      <div style="background: rgba(30,41,59,0.7); border: 1px solid #334155; padding: 18px; border-radius: 10px; text-align: left;">
+        <div style="font-weight: 700; color: #34d399; margin-bottom: 4px;">Developer (Rahul)</div>
+        <div style="font-size: 0.8rem; color: #94a3b8;">View projects, execute tasks, and update workflow status.</div>
+      </div>
+      <div style="background: rgba(30,41,59,0.7); border: 1px solid #334155; padding: 18px; border-radius: 10px; text-align: left;">
+        <div style="font-weight: 700; color: #fbbf24; margin-bottom: 4px;">HR (Amit)</div>
+        <div style="font-size: 0.8rem; color: #94a3b8;">View team members and dashboard. No project modification controls.</div>
+      </div>
+    </div>
+
+    <div>
+      <a href="/login.html" class="btn btn-primary" style="padding: 12px 28px; font-size: 1rem;" id="cta-start-btn">Explore Live Demo Application →</a>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 24px; color: #64748b; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05);">
+    TaskFlow Demo Application • Prepared for AuthSphere Integration • SQLite + Flask + Vanilla JS
+  </footer>
+
+</body>
+</html>

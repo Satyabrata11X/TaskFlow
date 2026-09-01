@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - TaskFlow</title>
+  <meta name="description" content="TaskFlow Dashboard overview with real-time SQLite statistics, recent projects, and activity stream.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard.html" class="brand-logo">
+          <div class="brand-icon">⚡</div>
+          <span>TaskFlow</span>
+        </a>
+        <div class="org-pill">
+          <span class="org-indicator"></span>
+          <span id="sidebar-org-name">TechCorp</span>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div>
+          <div class="nav-section-title">Workspace</div>
+          <ul class="nav-list">
+            <li>
+              <a href="/dashboard.html" class="nav-link active" id="nav-dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="/projects.html" class="nav-link" id="nav-projects">
+                <span class="nav-icon">📁</span>
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/tasks.html" class="nav-link" id="nav-tasks">
+                <span class="nav-icon">📋</span>
+                <span>Tasks</span>
+              </a>
+            </li>
+            <li>
+              <a href="/team.html" class="nav-link" id="nav-team">
+                <span class="nav-icon">👥</span>
+                <span>Team</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-section-title">Management</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-link" style="opacity: 0.6; cursor: default;" onclick="return false;">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- User Profile Widget -->
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-info-wrapper">
+            <div class="user-avatar" id="sidebar-user-avatar">U</div>
+            <div class="user-text">
+              <div class="user-name" id="sidebar-user-name">Loading...</div>
+              <span class="role-badge" id="sidebar-user-role">Role</span>
+            </div>
+          </div>
+          <button class="btn-logout-icon" onclick="logout()" title="Logout" id="logout-btn">
+            🚪
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-breadcrumbs">
+          <span>Workspace</span>
+          <span>/</span>
+          <span class="current-page">Dashboard</span>
+        </div>
+
+        <div class="navbar-actions">
+          <div class="authsphere-tag">
+            <span class="authsphere-tag-dot"></span>
+            AuthSphere Secured
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Dashboard Greeting -->
+        <div class="dashboard-greeting">
+          <div class="greeting-text">
+            <h2>Good morning, <span id="greeting-user-name">User</span></h2>
+            <p>Welcome back to TaskFlow project management workspace.</p>
+          </div>
+          <div class="greeting-badges">
+            <span id="greeting-user-role" class="role-badge">Owner</span>
+            <span id="greeting-user-org" style="background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 9999px; font-size: 0.8rem; font-weight: 500;">TechCorp</span>
+          </div>
+        </div>
+
+        <!-- 4 Stats Cards -->
+        <div class="stats-grid">
+          <!-- Total Projects -->
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Total Projects</span>
+              <span class="stat-value" id="stat-total-projects">0</span>
+              <span class="stat-subtext">Active & Planning</span>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-projects">📁</div>
+          </div>
+
+          <!-- Active Tasks -->
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Active Tasks</span>
+              <span class="stat-value" id="stat-active-tasks">0</span>
+              <span class="stat-subtext">Todo & In Progress</span>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-tasks">📋</div>
+          </div>
+
+          <!-- Team Members -->
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Team Members</span>
+              <span class="stat-value" id="stat-team-members">0</span>
+              <span class="stat-subtext">TechCorp Directory</span>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-team">👥</div>
+          </div>
+
+          <!-- Completed % -->
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Completed %</span>
+              <span class="stat-value" id="stat-completed-pct">0%</span>
+              <span class="stat-subtext">Overall Progress</span>
+            </div>
+            <div class="stat-icon-wrapper stat-icon-completed">🎯</div>
+          </div>
+        </div>
+
+        <!-- Two Column Grid (Recent Projects & Live Activity) -->
+        <div class="dashboard-grid">
+          <!-- Recent Projects -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Projects</h3>
+              <a href="/projects.html" class="btn btn-secondary btn-sm" id="view-all-projects-link">View All →</a>
+            </div>
+            <div class="card-body">
+              <div class="project-list-compact" id="dashboard-recent-projects">
+                <!-- Populated via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Activity</h3>
+            </div>
+            <div class="card-body">
+              <div class="activity-feed" id="dashboard-recent-activities">
+                <!-- Populated via JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - TaskFlow</title>
+  <meta name="description" content="Manage workspace projects, view progress, and assign team members in TaskFlow.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard.html" class="brand-logo">
+          <div class="brand-icon">⚡</div>
+          <span>TaskFlow</span>
+        </a>
+        <div class="org-pill">
+          <span class="org-indicator"></span>
+          <span id="sidebar-org-name">TechCorp</span>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div>
+          <div class="nav-section-title">Workspace</div>
+          <ul class="nav-list">
+            <li>
+              <a href="/dashboard.html" class="nav-link" id="nav-dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="/projects.html" class="nav-link active" id="nav-projects">
+                <span class="nav-icon">📁</span>
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/tasks.html" class="nav-link" id="nav-tasks">
+                <span class="nav-icon">📋</span>
+                <span>Tasks</span>
+              </a>
+            </li>
+            <li>
+              <a href="/team.html" class="nav-link" id="nav-team">
+                <span class="nav-icon">👥</span>
+                <span>Team</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-section-title">Management</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-link" style="opacity: 0.6; cursor: default;" onclick="return false;">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- User Profile Widget -->
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-info-wrapper">
+            <div class="user-avatar" id="sidebar-user-avatar">U</div>
+            <div class="user-text">
+              <div class="user-name" id="sidebar-user-name">Loading...</div>
+              <span class="role-badge" id="sidebar-user-role">Role</span>
+            </div>
+          </div>
+          <button class="btn-logout-icon" onclick="logout()" title="Logout" id="logout-btn">
+            🚪
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-breadcrumbs">
+          <a href="/dashboard.html">Workspace</a>
+          <span>/</span>
+          <span class="current-page">Projects</span>
+        </div>
+
+        <div class="navbar-actions">
+          <div class="authsphere-tag">
+            <span class="authsphere-tag-dot"></span>
+            AuthSphere Secured
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Projects</h1>
+            <p class="page-subtitle">Manage organization projects, track progress, and assign team members.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary rbac-project-create" onclick="openCreateProjectModal()" id="btn-new-project" style="display: none;">
+              + New Project
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls Bar (Search & Filter Tabs) -->
+        <div class="controls-bar">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="project-search-input" placeholder="Search projects by name or description...">
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab project-filter-tab active" data-filter="All" id="filter-all-projects">All</button>
+            <button class="filter-tab project-filter-tab" data-filter="Active" id="filter-active-projects">Active</button>
+            <button class="filter-tab project-filter-tab" data-filter="Completed" id="filter-completed-projects">Completed</button>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projects-grid-container">
+          <!-- Populated dynamically via JavaScript -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Create / Edit Project Modal -->
+  <div class="modal-backdrop" id="project-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="project-modal-title">Create New Project</h3>
+        <button class="btn-icon-only" onclick="closeModal('project-modal')">✕</button>
+      </div>
+      <form id="project-form">
+        <div class="modal-body">
+          <input type="hidden" id="project-id-input">
+
+          <div class="form-group">
+            <label class="form-label" for="project-name-input">Project Name *</label>
+            <input type="text" class="form-control" id="project-name-input" placeholder="e.g. Student Management System" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="project-desc-input">Description</label>
+            <textarea class="form-control" id="project-desc-input" placeholder="Brief project summary..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="project-status-select">Status</label>
+              <select class="form-control" id="project-status-select">
+                <option value="Active">Active</option>
+                <option value="Planning">Planning</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="project-progress-input">Progress (%)</label>
+              <input type="number" class="form-control" id="project-progress-input" min="0" max="100" value="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Project Team Members</label>
+            <div id="project-members-container" style="max-height: 140px; overflow-y: auto; border: 1px solid var(--border-color); padding: 8px 12px; border-radius: var(--radius-md); background: var(--bg-main);">
+              <!-- Checkboxes populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('project-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-project">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

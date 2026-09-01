@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Members - TaskFlow</title>
+  <meta name="description" content="View TechCorp organization team members, roles, and identity details in TaskFlow.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard.html" class="brand-logo">
+          <div class="brand-icon">⚡</div>
+          <span>TaskFlow</span>
+        </a>
+        <div class="org-pill">
+          <span class="org-indicator"></span>
+          <span id="sidebar-org-name">TechCorp</span>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div>
+          <div class="nav-section-title">Workspace</div>
+          <ul class="nav-list">
+            <li>
+              <a href="/dashboard.html" class="nav-link" id="nav-dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="/projects.html" class="nav-link" id="nav-projects">
+                <span class="nav-icon">📁</span>
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/tasks.html" class="nav-link" id="nav-tasks">
+                <span class="nav-icon">📋</span>
+                <span>Tasks</span>
+              </a>
+            </li>
+            <li>
+              <a href="/team.html" class="nav-link active" id="nav-team">
+                <span class="nav-icon">👥</span>
+                <span>Team</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-section-title">Management</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-link" style="opacity: 0.6; cursor: default;" onclick="return false;">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- User Profile Widget -->
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-info-wrapper">
+            <div class="user-avatar" id="sidebar-user-avatar">U</div>
+            <div class="user-text">
+              <div class="user-name" id="sidebar-user-name">Loading...</div>
+              <span class="role-badge" id="sidebar-user-role">Role</span>
+            </div>
+          </div>
+          <button class="btn-logout-icon" onclick="logout()" title="Logout" id="logout-btn">
+            🚪
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-breadcrumbs">
+          <a href="/dashboard.html">Workspace</a>
+          <span>/</span>
+          <span class="current-page">Team</span>
+        </div>
+
+        <div class="navbar-actions">
+          <div class="authsphere-tag">
+            <span class="authsphere-tag-dot"></span>
+            AuthSphere Secured
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Team Members</h1>
+            <p class="page-subtitle">TechCorp organization members, verified identities, and role assignments.</p>
+          </div>
+        </div>
+
+        <!-- Team Members Grid -->
+        <div class="team-grid" id="team-grid-container">
+          <!-- Populated dynamically via JavaScript -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

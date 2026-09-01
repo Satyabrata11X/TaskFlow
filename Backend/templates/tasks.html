@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks - TaskFlow</title>
+  <meta name="description" content="Manage workspace tasks, assignments, and workflow statuses in TaskFlow.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard.html" class="brand-logo">
+          <div class="brand-icon">⚡</div>
+          <span>TaskFlow</span>
+        </a>
+        <div class="org-pill">
+          <span class="org-indicator"></span>
+          <span id="sidebar-org-name">TechCorp</span>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div>
+          <div class="nav-section-title">Workspace</div>
+          <ul class="nav-list">
+            <li>
+              <a href="/dashboard.html" class="nav-link" id="nav-dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="/projects.html" class="nav-link" id="nav-projects">
+                <span class="nav-icon">📁</span>
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/tasks.html" class="nav-link active" id="nav-tasks">
+                <span class="nav-icon">📋</span>
+                <span>Tasks</span>
+              </a>
+            </li>
+            <li>
+              <a href="/team.html" class="nav-link" id="nav-team">
+                <span class="nav-icon">👥</span>
+                <span>Team</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-section-title">Management</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-link" style="opacity: 0.6; cursor: default;" onclick="return false;">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- User Profile Widget -->
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-info-wrapper">
+            <div class="user-avatar" id="sidebar-user-avatar">U</div>
+            <div class="user-text">
+              <div class="user-name" id="sidebar-user-name">Loading...</div>
+              <span class="role-badge" id="sidebar-user-role">Role</span>
+            </div>
+          </div>
+          <button class="btn-logout-icon" onclick="logout()" title="Logout" id="logout-btn">
+            🚪
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-breadcrumbs">
+          <a href="/dashboard.html">Workspace</a>
+          <span>/</span>
+          <span class="current-page">Tasks</span>
+        </div>
+
+        <div class="navbar-actions">
+          <div class="authsphere-tag">
+            <span class="authsphere-tag-dot"></span>
+            AuthSphere Secured
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Tasks</h1>
+            <p class="page-subtitle">Track task assignments, execute sprint goals, and update workflow statuses.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary rbac-task-create" onclick="openCreateTaskModal()" id="btn-new-task" style="display: none;">
+              + New Task
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls Bar (Search & Filter Tabs) -->
+        <div class="controls-bar">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="task-search-input" placeholder="Search tasks by title, description, or project...">
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab task-filter-tab active" data-filter="All" id="filter-all-tasks">All</button>
+            <button class="filter-tab task-filter-tab" data-filter="Todo" id="filter-todo-tasks">Todo</button>
+            <button class="filter-tab task-filter-tab" data-filter="In Progress" id="filter-inprogress-tasks">In Progress</button>
+            <button class="filter-tab task-filter-tab" data-filter="Completed" id="filter-completed-tasks">Completed</button>
+          </div>
+        </div>
+
+        <!-- Tasks List Container -->
+        <div class="tasks-container" id="tasks-container">
+          <!-- Populated dynamically via JavaScript -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Create / Edit Task Modal -->
+  <div class="modal-backdrop" id="task-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="task-modal-title">Create New Task</h3>
+        <button class="btn-icon-only" onclick="closeModal('task-modal')">✕</button>
+      </div>
+      <form id="task-form">
+        <div class="modal-body">
+          <input type="hidden" id="task-id-input">
+
+          <div class="form-group">
+            <label class="form-label" for="task-title-input">Task Title *</label>
+            <input type="text" class="form-control" id="task-title-input" placeholder="e.g. Implement authentication middleware" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="task-desc-input">Description</label>
+            <textarea class="form-control" id="task-desc-input" placeholder="Detailed requirements or acceptance criteria..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="task-project-select">Associated Project *</label>
+              <select class="form-control" id="task-project-select" required>
+                <!-- Populated via JS -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="task-assignee-select">Assignee</label>
+              <select class="form-control" id="task-assignee-select">
+                <!-- Populated via JS -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="task-status-input">Status</label>
+            <select class="form-control" id="task-status-input">
+              <option value="Todo">Todo</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('task-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-task">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

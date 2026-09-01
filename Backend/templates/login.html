@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - TaskFlow Demo (AuthSphere)</title>
+  <meta name="description" content="Select a demo user to log into TaskFlow and test role-based access control.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="auth-page-container">
+
+  <div class="landing-nav">
+    <a href="/" class="brand-logo">
+      <div class="brand-icon">⚡</div>
+      <span>TaskFlow</span>
+    </a>
+    <div class="authsphere-tag" style="background: rgba(30,41,59,0.8); color: #cbd5e1; border-color: #334155;">
+      <span class="authsphere-tag-dot"></span>
+      AuthSphere Simulation
+    </div>
+  </div>
+
+  <div class="login-card-wrapper">
+    <div class="login-card">
+      <div style="width: 48px; height: 48px; background: rgba(37,99,235,0.15); color: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 16px;">
+        🛡️
+      </div>
+      <h2 class="login-title">Welcome to TaskFlow</h2>
+      <p class="login-desc">Select a demo user to authenticate as TechCorp organization member.</p>
+
+      <div class="demo-users-list">
+        <!-- Satya: Owner -->
+        <button class="demo-user-btn" onclick="loginAsDemoUser(1)" id="login-user-satya">
+          <div class="demo-user-info">
+            <div class="user-avatar" style="background: #6d28d9; border-color: #8b5cf6;">S</div>
+            <div>
+              <div class="demo-user-name">Satya</div>
+              <div class="demo-user-email">satya@techcorp.demo</div>
+            </div>
+          </div>
+          <span class="role-badge role-owner">Owner</span>
+        </button>
+
+        <!-- Priya: Manager -->
+        <button class="demo-user-btn" onclick="loginAsDemoUser(2)" id="login-user-priya">
+          <div class="demo-user-info">
+            <div class="user-avatar" style="background: #1d4ed8; border-color: #3b82f6;">P</div>
+            <div>
+              <div class="demo-user-name">Priya</div>
+              <div class="demo-user-email">priya@techcorp.demo</div>
+            </div>
+          </div>
+          <span class="role-badge role-manager">Manager</span>
+        </button>
+
+        <!-- Rahul: Developer -->
+        <button class="demo-user-btn" onclick="loginAsDemoUser(3)" id="login-user-rahul">
+          <div class="demo-user-info">
+            <div class="user-avatar" style="background: #047857; border-color: #10b981;">R</div>
+            <div>
+              <div class="demo-user-name">Rahul</div>
+              <div class="demo-user-email">rahul@techcorp.demo</div>
+            </div>
+          </div>
+          <span class="role-badge role-developer">Developer</span>
+        </button>
+
+        <!-- Amit: HR -->
+        <button class="demo-user-btn" onclick="loginAsDemoUser(4)" id="login-user-amit">
+          <div class="demo-user-info">
+            <div class="user-avatar" style="background: #b45309; border-color: #f59e0b;">A</div>
+            <div>
+              <div class="demo-user-name">Amit</div>
+              <div class="demo-user-email">amit@techcorp.demo</div>
+            </div>
+          </div>
+          <span class="role-badge role-hr">HR</span>
+        </button>
+      </div>
+
+      <div style="margin-top: 24px; font-size: 0.78rem; color: #64748b; line-height: 1.4;">
+        Organization: <strong>TechCorp</strong> • Identity simulation prepared for direct AuthSphere migration.
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
